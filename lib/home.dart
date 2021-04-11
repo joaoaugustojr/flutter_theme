@@ -38,7 +38,8 @@ class HomePageState extends State<HomePage> {
         height: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          // scrollDirection: Axis.horizontal,
           children: [
             Text('Contador: $counter'),
             CustomSwitch(),

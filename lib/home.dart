@@ -14,9 +14,12 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('HomePage'), actions: [
-        CustomSwitch(),
-      ]),
+      appBar: AppBar(
+        title: Text('HomePage'),
+        actions: [
+          CustomSwitch(),
+        ],
+      ),
       // body: Center(
       //   child: GestureDetector(
       //     child: Text(
@@ -30,8 +33,40 @@ class HomePageState extends State<HomePage> {
       //     },
       //   ),
       // ),
-      body: Center(
-        child: CustomSwitch(),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text('Contador: $counter'),
+            CustomSwitch(),
+            Container(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  width: 50,
+                  height: 50,
+                  color: Colors.green,
+                ),
+                Container(
+                  width: 50,
+                  height: 50,
+                  color: Colors.red,
+                ),
+                Container(
+                  width: 50,
+                  height: 50,
+                  color: Colors.blue,
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),

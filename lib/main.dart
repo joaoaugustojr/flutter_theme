@@ -1,110 +1,84 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_learning/app.dart';
+// import 'package:flutter/rendering.dart';
+// import 'package:flutter_learning/app.dart';
+// import 'package:flutter_learning/counter_people.dart';
 
 main() {
-  // runApp(AppWidget(title: 'João Augusto'));
+  print("Iniciando Projeto");
   runApp(
-    MaterialApp(title: 'Contador de Pessoas', home: Home()),
+    // AppWidget(title: 'Learning'),
+    // MaterialApp(title: 'Contador de Pessoas', home: Home()),
+    PerguntaApp(),
   );
 }
 
-class Home extends StatefulWidget {
-  Home({Key key}) : super(key: key);
-
+class PerguntaApp extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  PerguntaAppState createState() {
+    return PerguntaAppState();
+  }
 }
 
-class _HomeState extends State<Home> {
-  int people = 0;
-  String infoText = "Pode Entrar!";
+class PerguntaAppState extends State<PerguntaApp> {
+  var perguntaSelecionada = 0;
 
-  void changePeople(int delta) {
+  final perguntas = [
+    'Qual é a sua cor favorita?',
+    'Qual é o seu animal favorito?',
+    'Qual é o seu hobby favorito?',
+    'Qual é o sua cidade favorita?',
+    'Qual é o seu jogo favorito?',
+    'Qual é a sua fruta favorita?',
+    'Qual é a sua comida favorita?'
+  ];
+
+  void responder() {
     setState(() {
-      people += delta;
-      infoText = people < 0 ? "Pode Entrar!" : "Pode Sair!";
+      if (perguntaSelecionada < perguntas.length - 1) {
+        perguntaSelecionada++;
+      } else {
+        perguntaSelecionada = 0;
+      }
     });
+
+    print("responder: $perguntaSelecionada");
+    print("$perguntaSelecionada, ${perguntas.length}");
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Stack(
-        children: <Widget>[
-          Image.asset(
-            "assets/images/bg1.jpg",
-            fit: BoxFit.cover,
-            height: MediaQuery.of(context).size.height,
-          ),
-          Column(
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('João Augusto'),
+        ),
+        body: Center(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                "Pessoas: $people",
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            children: [
+              Text(perguntas[perguntaSelecionada]),
+              ElevatedButton(
+                onPressed: () {
+                  responder();
+                },
+                child: Text("Resposta 1"),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                    child: TextButton(
-                      onPressed: () {
-                        changePeople(1);
-                      },
-                      child: Text(
-                        '+1',
-                        style: TextStyle(fontSize: 40, color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                    child: TextButton(
-                      onPressed: () {
-                        changePeople(-1);
-                      },
-                      child: Text(
-                        '-1',
-                        style: TextStyle(fontSize: 40, color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ],
+              ElevatedButton(
+                onPressed: () {
+                  responder();
+                },
+                child: Text("Resposta 2"),
               ),
-              Text(
-                infoText,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic),
+              ElevatedButton(
+                onPressed: () {
+                  responder();
+                },
+                child: Text("Resposta 3"),
               ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }
 }
-
-// class AppWidget extends StatelessWidget {
-//   final String title;
-
-//   const AppWidget({Key key, this.title}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       child: Center(
-//         child: Text(
-//           title,
-//           textDirection: TextDirection.ltr,
-//           style: TextStyle(color: Colors.white, fontSize: 20),
-//         ),
-//       ),
-//     );
-//   }
-// }

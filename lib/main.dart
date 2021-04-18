@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_learning/questao.dart';
+import 'package:flutter_learning/resposta.dart';
 // import 'package:flutter/rendering.dart';
 // import 'package:flutter_learning/app.dart';
 // import 'package:flutter_learning/counter_people.dart';
@@ -14,69 +16,102 @@ main() {
 
 class PerguntaApp extends StatefulWidget {
   @override
-  PerguntaAppState createState() {
-    return PerguntaAppState();
+  _PerguntaAppState createState() {
+    return _PerguntaAppState();
   }
 }
 
-class PerguntaAppState extends State<PerguntaApp> {
-  var perguntaSelecionada = 0;
+class _PerguntaAppState extends State<PerguntaApp> {
+  var _perguntaSelecionada = 0;
 
-  final perguntas = [
-    'Qual é a sua cor favorita?',
-    'Qual é o seu animal favorito?',
-    'Qual é o seu hobby favorito?',
-    'Qual é o sua cidade favorita?',
-    'Qual é o seu jogo favorito?',
-    'Qual é a sua fruta favorita?',
-    'Qual é a sua comida favorita?'
+  final _perguntas = [
+    {
+      'pergunta': 'Qual é a sua cor favorita?',
+      'respostas': ['Azul', 'Branco', 'Vermelho', 'Roxo', 'Outra']
+    },
+    {
+      'pergunta': 'Qual é o seu animal favorito?',
+      'respostas': ['Cavalo', 'Cachorro', 'Gato', 'Outro']
+    },
+    {
+      'pergunta': 'Qual é o seu hobby favorito?',
+      'respostas': ['Viajar', 'Desenhar', 'Praticar Esportes', 'Outro']
+    },
+    {
+      'pergunta': 'Qual é o sua cidade favorita?',
+      'respostas': ['São Paulo', 'Rio de Janeiro', 'Catalão', 'Outra']
+    },
+    {
+      'pergunta': 'Qual é o seu jogo favorito?',
+      'respostas': ['Cartas', 'Dama', 'Xadrez', 'Outro']
+    },
+    {
+      'pergunta': 'Qual é a sua fruta favorita?',
+      'respostas': ['Banana', 'Maça', 'Uva', 'Outra']
+    },
+    {
+      'pergunta': 'Qual é a sua comida favorita?',
+      'respostas': ['Arroz', 'Feijão', 'Carne', 'Outra']
+    }
   ];
 
-  void responder() {
-    setState(() {
-      if (perguntaSelecionada < perguntas.length - 1) {
-        perguntaSelecionada++;
-      } else {
-        perguntaSelecionada = 0;
-      }
-    });
+  void _responder() {
+    if (isPerguntaSelecionada) {
+      setState(() {
+        _perguntaSelecionada++;
+      });
+    }
+  }
 
-    print("responder: $perguntaSelecionada");
-    print("$perguntaSelecionada, ${perguntas.length}");
+  void _responderNovamente() {
+    setState(() {
+      _perguntaSelecionada = 0;
+    });
+  }
+
+  bool get isPerguntaSelecionada {
+    return _perguntaSelecionada < _perguntas.length;
   }
 
   @override
   Widget build(BuildContext context) {
+    List respostas = isPerguntaSelecionada
+        ? _perguntas[_perguntaSelecionada]['respostas']
+        : null;
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: Text('João Augusto'),
         ),
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(perguntas[perguntaSelecionada]),
-              ElevatedButton(
-                onPressed: () {
-                  responder();
-                },
-                child: Text("Resposta 1"),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  responder();
-                },
-                child: Text("Resposta 2"),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  responder();
-                },
-                child: Text("Resposta 3"),
-              ),
-            ],
-          ),
+          child: isPerguntaSelecionada
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Questao(_perguntas[_perguntaSelecionada]['pergunta']),
+                    ...respostas.map((r) => Resposta(r, _responder)).toList()
+                  ],
+                )
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Parabens!!',
+                      style: TextStyle(fontSize: 28),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        _responderNovamente();
+                      },
+                      child: Text('Responder Novamente'),
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.orange),
+                      ),
+                    ),
+                  ],
+                ),
         ),
       ),
     );

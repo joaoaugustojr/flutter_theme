@@ -1,4 +1,4 @@
 class ConstsApp {
-  static const String whitePokeball = "assets/images/pokeball.png";
-  static const String darkPokeball = "assets/images/pokeball_dark.png";
+  static String whitePokeball = "assets/images/pokeball.png";
+  static String darkPokeball = "assets/images/pokeball_dark.png";
 }

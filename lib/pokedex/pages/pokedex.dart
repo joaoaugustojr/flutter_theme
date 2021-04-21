@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_learning/consts/consts_app.dart';
+import 'package:flutter_learning/models/pokeapi.dart';
 import 'package:flutter_learning/pokedex/components/app_bar.dart';
+import 'package:flutter_learning/stores/pokeapi_store.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class Pokedex extends StatelessWidget {
   @override
@@ -13,7 +16,21 @@ class Pokedex extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  PokeApiStore pokeApiStore;
+
+  @override
+  void initState() {
+    super.initState();
+    pokeApiStore = PokeApiStore();
+    pokeApiStore.fetchPokemonList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +51,33 @@ class HomePage extends StatelessWidget {
               opacity: .1,
             ),
           ),
-          AppBarWidget(),
+          Container(
+            child: Column(children: [
+              Container(
+                height: MediaQuery.of(context).padding.top,
+              ),
+              AppBarWidget(),
+              Expanded(
+                child: Observer(
+                  builder: (BuildContext context) {
+                    PokeAPI _pokeAPI = pokeApiStore.pokeAPI;
+                    return (_pokeAPI != null)
+                        ? ListView.builder(
+                            itemCount: _pokeAPI.pokemon.length,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                title: Text(_pokeAPI.pokemon[index].name),
+                              );
+                            },
+                          )
+                        : Center(
+                            child: CircularProgressIndicator(),
+                          );
+                  },
+                ),
+              ),
+            ]),
+          ),
         ],
       ),
     );

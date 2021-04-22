@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_learning/consts/consts_app.dart';
 import 'package:flutter_learning/models/pokeapi.dart';
 import 'package:flutter_learning/pokedex/components/app_bar.dart';
+import 'package:flutter_learning/pokedex/components/poke_item.dart';
 import 'package:flutter_learning/stores/pokeapi_store.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class Pokedex extends StatelessWidget {
   @override
@@ -58,22 +60,59 @@ class _HomePageState extends State<HomePage> {
               ),
               AppBarWidget(),
               Expanded(
-                child: Observer(
-                  builder: (BuildContext context) {
-                    PokeAPI _pokeAPI = pokeApiStore.pokeAPI;
-                    return (_pokeAPI != null)
-                        ? ListView.builder(
-                            itemCount: _pokeAPI.pokemon.length,
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                title: Text(_pokeAPI.pokemon[index].name),
-                              );
-                            },
-                          )
-                        : Center(
-                            child: CircularProgressIndicator(),
-                          );
-                  },
+                child: Container(
+                  child: Observer(
+                    name: 'ListaHomePage',
+                    builder: (BuildContext context) {
+                      return (pokeApiStore.pokeAPI != null)
+                          ? AnimationLimiter(
+                              child: GridView.builder(
+                              physics: BouncingScrollPhysics(),
+                              padding: EdgeInsets.all(12),
+                              addAutomaticKeepAlives: true,
+                              itemCount: pokeApiStore.pokeAPI.pokemon.length,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2),
+                              itemBuilder: (context, index) {
+                                Pokemon pokemon = pokeApiStore.getPokemon(
+                                  index: index,
+                                );
+                                return AnimationConfiguration.staggeredGrid(
+                                  position: index,
+                                  columnCount: 2,
+                                  duration: Duration(milliseconds: 200),
+                                  child: ScaleAnimation(
+                                    child: GestureDetector(
+                                      child: PokeItem(
+                                        index: index,
+                                        name: pokemon.name,
+                                        type: pokemon.type,
+                                        image: pokeApiStore.getImage(
+                                          number: pokemon.num,
+                                        ),
+                                      ),
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            fullscreenDialog: true,
+                                            builder: (context) {
+                                              return Container();
+                                            },
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                );
+                              },
+                            ))
+                          : Center(
+                              child: CircularProgressIndicator(),
+                            );
+                    },
+                  ),
                 ),
               ),
             ]),

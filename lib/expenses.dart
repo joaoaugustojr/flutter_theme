@@ -3,6 +3,9 @@ import 'package:flutter_learning/models/transaction.dart';
 import 'package:intl/intl.dart';
 
 class ExpensesApp extends StatelessWidget {
+  String title;
+  String value;
+
   final _transactions = [
     Transaction(
         id: 't1',
@@ -93,13 +96,18 @@ class ExpensesApp extends StatelessWidget {
                 child: Column(
                   children: [
                     TextField(
+                      onChanged: (input) => title = input,
                       decoration: InputDecoration(labelText: 'Titulo'),
                     ),
                     TextField(
+                      onChanged: (input) => value = input,
                       decoration: InputDecoration(labelText: 'Valor (R\$)'),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        print(title);
+                        print(value);
+                      },
                       child: Text('Nova Transação'),
                       style: ButtonStyle(
                         foregroundColor:

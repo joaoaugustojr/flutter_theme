@@ -6,7 +6,7 @@ class PokeItem extends StatelessWidget {
   final int index;
   final Color color;
   final Widget image;
-  final List<String> type;
+  final List<String> types;
 
   const PokeItem({
     Key key,
@@ -14,8 +14,34 @@ class PokeItem extends StatelessWidget {
     this.index,
     this.color,
     this.image,
-    this.type,
+    this.types,
   }) : super(key: key);
+
+  List<Widget> getTypes() {
+    return types.map((type) {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 5),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Color.fromARGB(80, 255, 255, 255),
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(6),
+            child: Text(
+              type.trim(),
+              style: TextStyle(
+                fontFamily: 'Google',
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      );
+    }).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +52,32 @@ class PokeItem extends StatelessWidget {
           padding: const EdgeInsets.all(5),
           child: Stack(
             children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      name,
+                      style: TextStyle(
+                        fontFamily: 'Google',
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 7),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ...getTypes(),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
               Align(
                 alignment: Alignment.bottomRight,
                 child: Opacity(
@@ -45,23 +97,11 @@ class PokeItem extends StatelessWidget {
                   child: image,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  name,
-                  style: TextStyle(
-                    fontFamily: 'Google',
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              )
             ],
           ),
         ),
         decoration: BoxDecoration(
-          color: Colors.blue[200],
+          color: ConstsApp.getColorType(type: types[0]),
           borderRadius: BorderRadius.all(
             Radius.circular(20),
           ),

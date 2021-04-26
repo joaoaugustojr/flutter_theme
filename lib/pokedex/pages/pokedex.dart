@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                                       child: PokeItem(
                                         index: index,
                                         name: pokemon.name,
-                                        type: pokemon.type,
+                                        types: pokemon.type,
                                         image: pokeApiStore.getImage(
                                           number: pokemon.num,
                                         ),

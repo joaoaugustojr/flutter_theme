@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_learning/expenses.dart';
 import 'package:flutter_learning/pokedex/pages/pokedex.dart';
+// import 'package:flutter_learning/quiz/pages/quiz_home.dart';
 // import 'package:flutter_learning/perguntas.dart';
 // import 'package:flutter/rendering.dart';
 // import 'package:flutter_learning/app.dart';
@@ -14,5 +15,6 @@ main() {
     // PerguntaApp(),
     // ExpensesApp(),
     Pokedex(),
+    // QuizHome(),
   );
 }

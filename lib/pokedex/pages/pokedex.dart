@@ -3,38 +3,39 @@ import 'package:flutter_learning/consts/consts_app.dart';
 import 'package:flutter_learning/models/pokeapi.dart';
 import 'package:flutter_learning/pokedex/components/app_bar.dart';
 import 'package:flutter_learning/pokedex/components/poke_item.dart';
+import 'package:flutter_learning/pokedex/pages/poke-details.dart';
 import 'package:flutter_learning/stores/pokeapi_store.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:provider/provider.dart';
 
 class Pokedex extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "Pokedex - João Augusto",
-      home: HomePage(),
+    return MultiProvider(
+      providers: [
+        Provider<PokeApiStore>(
+          create: (_) => PokeApiStore(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: "Pokedex - João Augusto",
+        home: HomePage(),
+      ),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  PokeApiStore pokeApiStore;
-
-  @override
-  void initState() {
-    super.initState();
-    pokeApiStore = PokeApiStore();
-    pokeApiStore.fetchPokemonList();
-  }
-
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _pokeApiStore = Provider.of<PokeApiStore>(context);
+
+    if (_pokeApiStore.pokeAPI == null) {
+      _pokeApiStore.fetchPokemonList();
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -64,18 +65,18 @@ class _HomePageState extends State<HomePage> {
                   child: Observer(
                     name: 'ListaHomePage',
                     builder: (BuildContext context) {
-                      return (pokeApiStore.pokeAPI != null)
+                      return (_pokeApiStore.pokeAPI != null)
                           ? AnimationLimiter(
                               child: GridView.builder(
                               physics: BouncingScrollPhysics(),
                               padding: EdgeInsets.all(12),
                               addAutomaticKeepAlives: true,
-                              itemCount: pokeApiStore.pokeAPI.pokemon.length,
+                              itemCount: _pokeApiStore.pokeAPI.pokemon.length,
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2),
                               itemBuilder: (context, index) {
-                                Pokemon pokemon = pokeApiStore.getPokemon(
+                                Pokemon pokemon = _pokeApiStore.getPokemon(
                                   index: index,
                                 );
                                 return AnimationConfiguration.staggeredGrid(
@@ -88,7 +89,7 @@ class _HomePageState extends State<HomePage> {
                                         index: index,
                                         name: pokemon.name,
                                         types: pokemon.type,
-                                        image: pokeApiStore.getImage(
+                                        image: _pokeApiStore.getImage(
                                           number: pokemon.num,
                                         ),
                                       ),
@@ -98,7 +99,9 @@ class _HomePageState extends State<HomePage> {
                                           MaterialPageRoute(
                                             fullscreenDialog: true,
                                             builder: (context) {
-                                              return Container();
+                                              return PokeDetais(
+                                                index: index,
+                                              );
                                             },
                                           ),
                                         );

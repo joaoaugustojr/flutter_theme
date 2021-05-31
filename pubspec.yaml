@@ -64,6 +64,16 @@ flutter:
     - assets/images/bg1.jpg
     - assets/images/pokeball.png
     - assets/images/pokeball_dark.png
+    - assets/images/main_top.png
+    - assets/images/main_bottom.png
+    - assets/icons/chat.svg
+    - assets/images/login_bottom.png
+    - assets/images/login.svg
+    - assets/images/signup_top.png
+    - assets/images/signup.svg
+    - assets/icons/facebook.svg
+    - assets/icons/twitter.svg
+    - assets/icons/google-plus.svg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

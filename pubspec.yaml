@@ -74,6 +74,7 @@ flutter:
     - assets/icons/facebook.svg
     - assets/icons/twitter.svg
     - assets/icons/google-plus.svg
+    - assets/images/background.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

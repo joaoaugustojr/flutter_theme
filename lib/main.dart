@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_learning/screems/login/login_signup.dart';
 // import 'package:flutter_learning/expenses.dart';
 // import 'package:flutter_learning/pokedex/pages/pokedex.dart';
-import 'package:flutter_learning/screems/welcome_screen.dart';
+// import 'package:flutter_learning/screems/welcome_screen.dart';
 // import 'package:flutter_learning/quiz/pages/quiz_home.dart';
 // import 'package:flutter_learning/perguntas.dart';
 // import 'package:flutter/rendering.dart';
@@ -16,7 +17,8 @@ main() {
     // PerguntaApp(),
     // ExpensesApp(),
     // Pokedex(),
-    WelcomeScreen(),
+    // WelcomeScreen(),
     // QuizHome(),
+    LoginScreen(),
   );
 }

@@ -35,6 +35,7 @@ class HomePage extends StatelessWidget {
     if (_pokeApiStore.pokeAPI == null) {
       _pokeApiStore.fetchPokemonList();
     }
+    print(MediaQuery.of(context).size.width);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -43,8 +44,8 @@ class HomePage extends StatelessWidget {
         alignment: Alignment.topCenter,
         children: [
           Positioned(
-            top: -(240 / 4.5),
-            left: MediaQuery.of(context).size.width - (240 / 1.6),
+            bottom: MediaQuery.of(context).size.height - 193.5,
+            left: MediaQuery.of(context).size.width - 155,
             child: Opacity(
               child: Image.asset(
                 ConstsApp.darkPokeball,
@@ -74,7 +75,8 @@ class HomePage extends StatelessWidget {
                               itemCount: _pokeApiStore.pokeAPI.pokemon.length,
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2),
+                                crossAxisCount: 2,
+                              ),
                               itemBuilder: (context, index) {
                                 Pokemon pokemon = _pokeApiStore.getPokemon(
                                   index: index,

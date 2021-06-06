@@ -11,7 +11,7 @@ class AppBarWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 18, right: 6),
+                  padding: const EdgeInsets.only(top: 0, right: 11.5),
                   child: IconButton(
                     icon: Icon(Icons.menu),
                     onPressed: () {},

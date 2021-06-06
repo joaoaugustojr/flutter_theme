@@ -310,7 +310,74 @@ class _LoginSignupUIState extends State<LoginSignupUI> {
           buildBottomHalfContainer(
             showShadow: false,
           ),
+          Positioned(
+            top: MediaQuery.of(context).size.height - 100,
+            right: 0,
+            left: 0,
+            child: Column(
+              children: [
+                Text(
+                  "Or signup with",
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    buildTextButton(
+                      icon: MaterialCommunityIcons.facebook,
+                      title: "Facebook",
+                      backgroundColor: Palette.facebookColor,
+                    ),
+                    buildTextButton(
+                      icon: MaterialCommunityIcons.google,
+                      title: "Google",
+                      backgroundColor: Palette.googleColor,
+                    ),
+                  ],
+                )
+              ],
+            ),
+          )
         ],
+      ),
+    );
+  }
+
+  Widget buildTextButton({
+    IconData icon,
+    String title,
+    Color backgroundColor,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextButton(
+        onPressed: () {},
+        style: TextButton.styleFrom(
+          side: BorderSide(
+            width: 1,
+            color: Colors.grey,
+          ),
+          minimumSize: Size(155, 40),
+          primary: Colors.white,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          backgroundColor: backgroundColor,
+        ),
+        child: Row(
+          children: [
+            Icon(
+              icon,
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Text(
+              title,
+            )
+          ],
+        ),
       ),
     );
   }

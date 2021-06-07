@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_learning/screems/login/login_page.dart';
+import 'package:flutter_learning/screems/indicators/indicator_screen.dart';
+// import 'package:flutter_learning/screems/login/login_page.dart';
 // import 'package:flutter_learning/screems/login/login_signup.dart';
 // import 'package:flutter_learning/expenses.dart';
 // import 'package:flutter_learning/pokedex/pages/pokedex.dart';
@@ -20,6 +21,7 @@ main() {
     // Pokedex(),
     // WelcomeScreen(),
     // QuizHome(),
-    LoginScreen(),
+    // LoginScreen(),
+    IndicatorScreen(),
   );
 }

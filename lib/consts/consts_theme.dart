@@ -15,8 +15,27 @@ class Palette {
   static const Color backgroundColor = Color(0xFFECF3F9);
 }
 
+class ColorSys {
+  static const Color primary = Color.fromRGBO(52, 43, 37, 1);
+  static const Color gray = Color.fromRGBO(137, 137, 137, 1);
+  static const Color secoundry = Color.fromRGBO(198, 116, 27, 1);
+  static const Color secoundryLight = Color.fromRGBO(226, 185, 141, 1);
+}
+
 // Gradients
 final Shader linearGradient = LinearGradient(colors: [
   Color(0xffDA44bb),
   Color(0xff8921aa),
 ]).createShader(Rect.fromLTWH(0, 0, 200, 70));
+
+class Strings {
+  static var stepOneTitle = "Farm Driving";
+  static var stepOneContent =
+      "There are all kinds of equipment to build your farm better harvest";
+  static var stepTwoTitle = "Plant Growing";
+  static var stepTwoContent =
+      "Be part of the agriculture and gives your team the  power you need to do your best";
+  static var stepThreeTitle = "Fast Harvesting";
+  static var stepThreeContent =
+      "Your will be proud to be part of agriculture and it’s harvest";
+}

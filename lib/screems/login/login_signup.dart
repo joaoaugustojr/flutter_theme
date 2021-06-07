@@ -62,7 +62,7 @@ class _LoginSignupUIState extends State<LoginSignupUI> {
                         ),
                         children: [
                           TextSpan(
-                            text: isSignupScreen ? " Rizona," : " Back,",
+                            text: isSignupScreen ? " SpeedCode," : " Back,",
                             style: TextStyle(
                               fontSize: 25,
                               fontWeight: FontWeight.bold,
